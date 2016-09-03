@@ -3,9 +3,19 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic', 'firebase', 'routes', 'controllers', 'services'])
 
-.run(function($ionicPlatform) {
+.constant('$config', {
+  firebase: {
+    apiKey: "AIzaSyAF5nZKcq68Q0Wbct2cNNYzrQorrw-gGvA",
+    authDomain: "neraca-7a960.firebaseapp.com",
+    databaseURL: "https://neraca-7a960.firebaseio.com",
+    storageBucket: "neraca-7a960.appspot.com"
+  },
+  user: 'baka'
+})
+
+.run(function($ionicPlatform, $config) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -20,5 +30,12 @@ angular.module('starter', ['ionic'])
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+    initFirebase();
   });
+
+
+  function initFirebase() {
+    firebase.initializeApp($config.firebase);
+  }
 })
